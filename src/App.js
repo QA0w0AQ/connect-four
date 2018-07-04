@@ -13,7 +13,8 @@ class App extends Component {
     rows: 6,
     currentPlayer: 1,
     isEnd: false,
-    winner: null
+    winner: null,
+    connection: null
   };
 
   componentDidMount = () => {
@@ -31,7 +32,8 @@ class App extends Component {
       discs: GAME.getDiscs(),
       currentPlayer: GAME.getCurrPlayer(),
       isEnd: GAME.isGameEnd(),
-      winner: GAME.getWinner()
+      winner: GAME.getWinner(),
+      connection: GAME.getConnection()
     });
   };
 
@@ -49,6 +51,9 @@ class App extends Component {
         <GameBoard
           discs={this.state.discs}
           currentPlayer={this.state.currentPlayer}
+          isEnd = {this.state.isEnd}
+          connection = {this.state.connection}
+          winner = {this.state.winner}
           onPlaceDisc={this.placeDisc}
         />
       </div>

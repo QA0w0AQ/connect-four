@@ -13,6 +13,7 @@ class Connect4 {
     this.isEnd = false;
     this.winner = null;
     this.connection = null;
+    this.steps = [];
   }
 
   getDiscs() {
@@ -81,6 +82,7 @@ class Connect4 {
     for (let i = this.discs.length - 1; i >= 0; i--) {
       if (!this.discs[i][colIndex]) {
         this.discs[i][colIndex] = this.players[this.currPlayer];
+        this.steps.push([i, colIndex]);
         this.checkGameState(i, colIndex);
         if (this.connection) {
           this.winner = this.players[this.currPlayer];

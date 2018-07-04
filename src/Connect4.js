@@ -41,7 +41,8 @@ class Connect4 {
   placeDisc(colIndex) {
     for (let i = this.discs.length - 1; i >= 0; i--) {
       if (!this.discs[i][colIndex]) {
-        this.this.discs[i][colIndex] = this.players[this.currPlayer];
+        this.discs[i][colIndex] = this.players[this.currPlayer];
+        this.currPlayer = Math.abs(this.currPlayer - 1);
         return;
       }
     }

@@ -7,14 +7,12 @@ class App extends Component {
   state = {
     discs: [],
     width: 7,
-    height: 6
+    height: 6,
+    currentPlayer: 1
   };
 
   componentDidMount = () => {
     this.init();
-    setTimeout(() => {
-      console.log(this.state.discs);
-    }, 100);
   };
 
   init = () => {
@@ -29,13 +27,33 @@ class App extends Component {
     this.setState({ discs: newDiscs });
   };
 
+  placeDisc(colIndex) {
+    for (let i = this.state.height - 1; i >= 0; i--) {
+      if (!this.state.discs[i][colIndex]) {
+        this.setState(prevState => {
+          const newDiscs = [...prevState.discs];
+          newDiscs[i][colIndex] = prevState.currentPlayer;
+          return {
+            discs: newDiscs,
+            currentPlayer: prevState.currentPlayer === 1 ? 2 : 1
+          };
+        });
+        return;
+      }
+    }
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Connect 4</h1>
         </header>
-        <GameBoard discs={this.state.discs} />
+        <GameBoard
+          discs={this.state.discs}
+          currentPlayer={this.state.currentPlayer}
+          onPlaceDisc={this.placeDisc}
+        />
       </div>
     );
   }

@@ -2,45 +2,42 @@ import React, { Component } from 'react';
 import './App.css';
 
 import GameBoard from './GameBoard';
+import Connect4 from './Connect4';
+
+let GAME;
 
 class App extends Component {
   state = {
     discs: [],
-    width: 7,
-    height: 6,
-    currentPlayer: 1
+    cols: 7,
+    rows: 6,
+    currentPlayer: 1,
+    isEnd: false,
+    winner: null
   };
 
   componentDidMount = () => {
-    this.init();
+    this.resetGame();
   };
 
-  init = () => {
-    const { height, width } = this.state;
-    const newDiscs = [];
-    for (let i = 0; i < height; i++) {
-      newDiscs.push([]);
-      for (let j = 0; j < width; j++) {
-        newDiscs[i].push(null);
-      }
-    }
-    this.setState({ discs: newDiscs });
+  resetGame = () => {
+    const { rows, cols } = this.state;
+    GAME = new Connect4(rows, cols);
+    this.updateGame();
   };
 
-  placeDisc(colIndex) {
-    for (let i = this.state.height - 1; i >= 0; i--) {
-      if (!this.state.discs[i][colIndex]) {
-        this.setState(prevState => {
-          const newDiscs = [...prevState.discs];
-          newDiscs[i][colIndex] = prevState.currentPlayer;
-          return {
-            discs: newDiscs,
-            currentPlayer: prevState.currentPlayer === 1 ? 2 : 1
-          };
-        });
-        return;
-      }
-    }
+  updateGame = () => {
+    this.setState({
+      discs: GAME.getDiscs(),
+      currentPlayer: GAME.getCurrPlayer(),
+      isEnd: GAME.isGameEnd(),
+      winner: GAME.getWinner()
+    });
+  };
+
+  placeDisc = (colIndex) => {
+    GAME.placeDisc(colIndex);
+    this.updateGame();
   }
 
   render() {

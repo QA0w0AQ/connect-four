@@ -71,9 +71,18 @@ class Connect4 {
     const directions = [[1, 0], [0, 1], [1, 1], [-1, 1]];
 
     for (const direction of directions) {
-      const connection = this.checkConnection(rowIndex, colIndex, direction);
-      if (connection) {
+      const result = this.checkConnection(rowIndex, colIndex, direction);
+      if (result) {
+        const { head, direction } = result;
+        let connection = [];
+        for (let i = 0; i < 4; i++) {
+          connection.push([
+            head[0] + direction[0] * i,
+            head[1] + direction[1] * i
+          ]);
+        }
         this.connection = connection;
+        return;
       }
     }
   }

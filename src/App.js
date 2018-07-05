@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-
 import GameBoard from './GameBoard';
 import Connect4 from './Connect4';
 

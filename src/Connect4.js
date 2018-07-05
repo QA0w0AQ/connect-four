@@ -8,6 +8,8 @@ class Connect4 {
       }
     }
     this.discs = discs;
+    this.rows = rows;
+    this.cols = cols;
     this.players = [1, 2];
     this.currPlayer = 0;
     this.isEnd = false;
@@ -38,6 +40,11 @@ class Connect4 {
 
   getConnection() {
     return this.connection;
+  }
+
+  goBack(steps) {
+    const removedSteps = this.steps.splice(-steps, steps);
+    removedSteps.forEach(step => (this.discs[step[0]][step[1]] = null));
   }
 
   checkConnection(curRow, curCol, direction) {
@@ -96,9 +103,15 @@ class Connect4 {
         if (this.connection) {
           this.winner = this.players[this.currPlayer];
           this.isEnd = true;
-        } else {
-          this.currPlayer = Math.abs(this.currPlayer - 1);
+          return;
         }
+
+        if (this.steps.length === this.rows * this.cols) {
+          this.isEnd = true;
+          return;
+        }
+
+        this.currPlayer = Math.abs(this.currPlayer - 1);
         return;
       }
     }

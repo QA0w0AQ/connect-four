@@ -4,7 +4,7 @@ class GameInfo extends Component {
     
   
   render() {    
-    const { currentPlayer } = this.props 
+    const { currentPlayer,onRetract } = this.props 
     return (
       <div>
           <i className="material-icons">
@@ -15,6 +15,7 @@ class GameInfo extends Component {
               perm_identity
           </i>
           <span className='one' style={{backgroundColor: currentPlayer ? currentPlayer === 2 ? 'blue': 'red' : 'red'}}></span>
+          <button onClick={onRetract} style={{padding:"1px"}}><i className="material-icons" style={{fontSize:"17px"}}>restore</i></button>
       </div>
     )
   }

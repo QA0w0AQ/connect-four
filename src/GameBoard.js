@@ -2,23 +2,24 @@ import React, { Component } from 'react';
 import GameInfo from './GameInfo'
 
 class GameBoard extends Component {
-    
+
+  isEndSelection = (num)=> {
+    if (!this.props.isEnd) {
+      return this.props.onPlaceDisc(num)
+    }
+  }
   
   render() {
-    const { discs,onPlaceDisc } = this.props 
+    const { discs,currentPlayer } = this.props 
     
     return (
       <div className='container'>
-      <GameInfo />
+      <GameInfo currentPlayer={currentPlayer}/>
       <div className="game-board">
         <div className="button">
-          <button onClick={() => onPlaceDisc(0)}>🡻</button>
-          <button onClick={() => onPlaceDisc(1)}>🡻</button>
-          <button onClick={() => onPlaceDisc(2)}>🡻</button>
-          <button onClick={() => onPlaceDisc(3)}>🡻</button>
-          <button onClick={() => onPlaceDisc(4)}>🡻</button>
-          <button onClick={() => onPlaceDisc(5)}>🡻</button>
-          <button onClick={() => onPlaceDisc(6)}>🡻</button>
+          {discs[0] && discs[0].map((_, index)=>(
+            <button key={index} onClick={() => this.isEndSelection(index)}>🡻</button> 
+          ))}
         </div>
         <table className="table">
           <tbody>
@@ -31,6 +32,7 @@ class GameBoard extends Component {
             ))}
           </tbody>
         </table>
+        {this.props.isEnd ? "Yeah~! You Win!" : ""}
       </div>
     </div>
     );

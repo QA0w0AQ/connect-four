@@ -13,6 +13,7 @@ class Connect4 {
     this.isEnd = false;
     this.winner = null;
     this.connection = null;
+    this.steps = [];
   }
 
   getDiscs() {
@@ -70,9 +71,18 @@ class Connect4 {
     const directions = [[1, 0], [0, 1], [1, 1], [-1, 1]];
 
     for (const direction of directions) {
-      const connection = this.checkConnection(rowIndex, colIndex, direction);
-      if (connection) {
+      const result = this.checkConnection(rowIndex, colIndex, direction);
+      if (result) {
+        const { head, direction } = result;
+        let connection = [];
+        for (let i = 0; i < 4; i++) {
+          connection.push([
+            head[0] + direction[0] * i,
+            head[1] + direction[1] * i
+          ]);
+        }
         this.connection = connection;
+        return;
       }
     }
   }
@@ -81,6 +91,7 @@ class Connect4 {
     for (let i = this.discs.length - 1; i >= 0; i--) {
       if (!this.discs[i][colIndex]) {
         this.discs[i][colIndex] = this.players[this.currPlayer];
+        this.steps.push([i, colIndex]);
         this.checkGameState(i, colIndex);
         if (this.connection) {
           this.winner = this.players[this.currPlayer];

@@ -43,7 +43,7 @@ class Connect4 {
   }
 
   goBack(steps) {
-    const removedSteps = this.steps.splice(-steps, steps.length);
+    const removedSteps = this.steps.splice(-steps, steps);
     removedSteps.forEach(step => (this.discs[step[0]][step[1]] = null));
   }
 

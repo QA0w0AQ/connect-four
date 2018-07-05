@@ -41,6 +41,11 @@ class App extends Component {
     this.updateGame();
   }
 
+  retract = () => {
+    GAME.goBack(1);
+    this.updateGame();
+  }
+
   render() {
     return (
       <div className="App">
@@ -54,6 +59,7 @@ class App extends Component {
           connection = {this.state.connection}
           winner = {this.state.winner}
           onPlaceDisc={this.placeDisc}
+          onRetract={this.retract}
         />
       </div>
     );

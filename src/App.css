@@ -5,3 +5,23 @@
 .App-title {
   font-size: 1.5em;
 }
+
+.material-icons {
+  font-size: 57px;
+}
+
+.one {
+  height: 25px;
+  width: 25px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 4px;
+  padding: 2px;
+  border: 1px solid black;
+}
+
+button {
+  margin: 4px;
+  /* padding: 1px 7px; */
+}

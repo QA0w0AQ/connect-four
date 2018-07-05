@@ -42,9 +42,16 @@ class Connect4 {
     return this.connection;
   }
 
+  switchPlayer() {
+    this.currPlayer = Math.abs(this.currPlayer - 1);
+  }
+
   goBack(steps) {
-    const removedSteps = this.steps.splice(-steps, steps);
-    removedSteps.forEach(step => (this.discs[step[0]][step[1]] = null));
+    if (steps <= this.steps.length) {
+      const removedSteps = this.steps.splice(-steps, steps);
+      removedSteps.forEach(step => (this.discs[step[0]][step[1]] = null));
+      this.switchPlayer();
+    }
   }
 
   checkConnection(curRow, curCol, direction) {
@@ -111,7 +118,7 @@ class Connect4 {
           return;
         }
 
-        this.currPlayer = Math.abs(this.currPlayer - 1);
+        this.switchPlayer();
         return;
       }
     }

@@ -10,11 +10,11 @@ class GameBoard extends Component {
   }
   
   render() {
-    const { discs,currentPlayer,onRetract } = this.props 
+    const { discs,currentPlayer,onRetract,isEnd,winner } = this.props 
     
     return (
       <div className='container'>
-      <GameInfo currentPlayer={currentPlayer} onRetract={onRetract}/>
+      <GameInfo currentPlayer={currentPlayer} onRetract={onRetract} isEnd={isEnd}/>
       <div className="game-board">
         <div className="button">
           {discs[0] && discs[0].map((_, index)=>(
@@ -32,7 +32,7 @@ class GameBoard extends Component {
             ))}
           </tbody>
         </table>
-        {this.props.isEnd ? "Yeah~! You Win!" : ""}
+        {isEnd ? (winner ? "Yeah~! You Win!" : "Draw Game") : ""}
       </div>
     </div>
     );

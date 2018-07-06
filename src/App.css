@@ -1,5 +1,6 @@
 .App {
   text-align: -webkit-center;
+  user-select: none;
 }
 
 .App-title {

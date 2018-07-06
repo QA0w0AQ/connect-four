@@ -57,11 +57,11 @@ class Connect4 {
   checkConnection(curRow, curCol, direction) {
     const [dirV, dirH] = direction;
     let [x, y] = [curRow, curCol];
-    let current = this.discs[x][y];
+    let current = this.discs[x][y].player;
     let count = 0;
     let head;
 
-    while (this.discs[x] && this.discs[x][y] && this.discs[x][y] === current) {
+    while (this.discs[x] && this.discs[x][y] && this.discs[x][y].player === current) {
       head = [x, y];
       count++;
       x -= dirV;
@@ -69,7 +69,7 @@ class Connect4 {
     }
 
     [x, y] = [curRow + dirV, curCol + dirH];
-    while (this.discs[x] && this.discs[x][y] && this.discs[x][y] === current) {
+    while (this.discs[x] && this.discs[x][y] && this.discs[x][y].player === current) {
       count++;
       x += dirV;
       y += dirH;
@@ -79,6 +79,11 @@ class Connect4 {
       console.log({ head, direction });
       return { head, direction };
     }
+  }
+
+  setConnection(connection) {
+    this.connection = connection;
+    connection.forEach(item => this.discs[item[0]][item[1]].connected = true);
   }
 
   checkGameState(rowIndex, colIndex) {
@@ -95,7 +100,7 @@ class Connect4 {
             head[1] + direction[1] * i
           ]);
         }
-        this.connection = connection;
+        this.setConnection(connection);
         return;
       }
     }
@@ -104,7 +109,10 @@ class Connect4 {
   placeDisc(colIndex) {
     for (let i = this.discs.length - 1; i >= 0; i--) {
       if (!this.discs[i][colIndex]) {
-        this.discs[i][colIndex] = this.players[this.currPlayer];
+        this.discs[i][colIndex] = {
+          player: this.players[this.currPlayer],
+          connected: false
+        };
         this.steps.push([i, colIndex]);
         this.checkGameState(i, colIndex);
         if (this.connection) {

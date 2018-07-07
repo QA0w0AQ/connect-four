@@ -26,7 +26,7 @@ class GameBoard extends Component {
             {discs.map((unit,index)=>(
               <tr key={index} className="tr">
                {unit.map((disc, index)=>(
-                 <td className="unit" style={{backgroundColor: disc ? disc.player === 1 ? 'red': 'blue' : 'white'}} key={index}></td>
+                 <td className="unit" style={{backgroundColor: disc ? disc.player === 1 ? 'red': 'blue' : 'white', border: disc ?disc.connected ? '1px solid goldenrod':'':''}} key={index}></td>
                ))}
               </tr>
             ))}
